@@ -11,6 +11,7 @@ interface.
 ```
 Example made using gcc compiler
 gcc gwc.c -o gwc
+
 Usage: ./gwc <input_file>
 ```
 ---
