@@ -11,31 +11,36 @@ void drawGraph(int lines, int words, int chars);
 
 /* Count characters, words, lines and display data in a graph */
 int main(int argc, char *argv[]) {
-    /* if (argc == 1) { */
-    /*     printf("No input file\n"); */
-    /*     return 1; */
-    /* } */
+    if (argc == 1) {
+        printf("No input file\n");
+        return 1;
+    }
 
     int c = 0;
     int nchar = 0;   /* number of characters */
     int nwords = 0;  /* number of words */
     int nlines = 0;  /* number of lines */
     int state = OUT;
+    FILE *fp;
 
-    /* while ((c = getchar()) != EOF) { */
-    /*     ++nchar; */
-    /*     if (c == '\n') */
-    /*         ++nlines; */
-    /*     if (c == ' ' || c == '\n' || c == '\t') */
-    /*         state = OUT; */
-    /*     else if (state == OUT) { */
-    /*         state = IN; */
-    /*         ++nwords; */
-    /*     } */
-    /* } */
+    if ((fp = fopen(*++argv, "r")) == NULL) {
+        printf("Cannot open %s\n", *argv);
+        return 1;
+    }
 
+    while ((c = getc(fp)) != EOF) {
+        ++nchar;
+        if (c == '\n')
+            ++nlines;
+        if (c == ' ' || c == '\n' || c == '\t')
+            state = OUT;
+        else if (state == OUT) {
+            state = IN;
+            ++nwords;
+        }
+    }
 
-    drawGraph(100, 200, 200);
+    drawGraph(nlines, nwords, nchar);
 
     return 0;
 }
@@ -49,10 +54,6 @@ void drawGraph(int lines, int words, int chars) {
     double line_graph_length = GRAPHLENGTH * lines_ratio;
     double word_graph_length = GRAPHLENGTH * words_ratio;
     double char_graph_length = GRAPHLENGTH * chars_ratio;
-    printf("Denominator is %d\n", denominator);
-    printf("lines ratio  is %f\n", lines_ratio);
-    printf("words ratio  is %f\n", words_ratio);
-    printf("chars ratio  is %f\n", chars_ratio);
 
     for (int i = 0, y = 0; i < MAXHEIGHT; ++i, ++y)
         if (y == START_DRAWING_LINE_GRAPH && line_graph_length != 0) {
