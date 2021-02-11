@@ -1,6 +1,6 @@
 ## Basic Overview
 
-Interpretation of the unix program word count (wc) with extra graph
+Interpretation of the unix program word count (wc) with extra visual
 interface.
 
 ![GIF demo](demo/example.gif)
