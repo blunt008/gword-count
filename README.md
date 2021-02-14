@@ -9,7 +9,7 @@ interface.
 
 ---
 ```
-Example made using gcc compiler
+Compile it (example using gcc):
 gcc gwc.c -o gwc
 
 Usage: ./gwc <input_file>
